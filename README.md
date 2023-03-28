@@ -9,3 +9,8 @@ feature-2-branch
 changes in develop from team B
 
 changes by team A for feat 1
+
+changes by team A for feat 2
+
+
+
