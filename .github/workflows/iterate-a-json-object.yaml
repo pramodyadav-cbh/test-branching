@@ -1,0 +1,38 @@
+name: iterate a string array
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_branches:
+        description: 'feature branches to be merged separated by commas'
+        required: true
+      number_of_feature_branches:
+        description: 'number of feature branches'
+        required: true
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
+
+      - uses: jungwinter/split@v2
+        id: split
+        with:
+          msg: '${{ inputs.feature_branches }}'
+          separator: ","
+
+      - name: print feature branch name
+        run: |
+          echo "${{ steps.split.outputs._0 }}"
+          echo "${{ steps.split.outputs._1 }}"
+          
+      - name: iterate using for loop
+        run: |
+          for i in {0..1}; do
+            echo "${i}"
+            echo "${{ steps.split.outputs._${i} }}"
+          done  
+        
