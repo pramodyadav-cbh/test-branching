@@ -35,6 +35,10 @@ jobs:
           for i in {0..2}; do
             echo "${i}"
             echo "${{ toJson(steps.split.outputs) }}"
-            echo "'${{ toJson(steps.split.outputs) }}' | jq '._0')"
+            echo "'{
+                "length": 2,
+                "_0": "feature-a",
+                "_1": "feature-b"
+              }' | jq '._0')"
           done  
         
