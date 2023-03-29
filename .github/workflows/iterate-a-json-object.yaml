@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
+        # with:
+          # token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
 
       - uses: jungwinter/split@v2
         id: split
