@@ -32,7 +32,7 @@ jobs:
       - name: iterate using for loop
         run: |
           
-          for i in {0.."${{ steps.split.outputs.length}}"}; do
+          for i in {0..2}; do
             echo "${i}"
             echo "${{ toJson(steps.split.outputs) }}"
             BRANCH_NAME = $(echo '${{ steps.split.outputs }}' | jq '._${i}')
