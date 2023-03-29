@@ -38,10 +38,10 @@ jobs:
       - name: print feature branch name
         run: echo ${{ steps.split.outputs._0 }}
 
-      - name : merge feature branch(es)
+      - name: merge a branch
         run: |
-          for i in {1..${{ inputs.number_of_feature_branches }}}
-            echo "${i} - Feature branch ${steps.split.outputs._0}"
+          git merge origin/feature-1-team-b
+          git merge origin/feature-2-team-b
 
       - name: Create new release branch
         run: git push origin "main:${{ steps.branch_name.outputs.branch-name }}"
