@@ -37,4 +37,6 @@ jobs:
             echo "${{ toJson(steps.split.outputs) }}"
             echo  "jq '._0' ./features.json"
           done  
-        
+       
+      - name: parse json
+        run: jq '._0' ./features.json
