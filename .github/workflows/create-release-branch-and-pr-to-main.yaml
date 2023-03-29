@@ -27,7 +27,9 @@ jobs:
         run: echo ${{ steps.branch_name.outputs.branch-name }}
 
       - name: create release branch
-        run : git checkout -b ${{ steps.branch_name.outputs.branch-name }} main
+        run : |
+          git checkout -b ${{ steps.branch_name.outputs.branch-name }} main
+          git push origin "main:${{ steps.branch_name.outputs.branch-name }}"
 
       - uses: jungwinter/split@v2
         id: split
@@ -40,7 +42,6 @@ jobs:
 
       - name: merge a branch
         run: |
-          git checkout main
           git merge origin/feature-1-team-b
           git merge origin/feature-2-team-b
 
