@@ -35,7 +35,7 @@ jobs:
           for i in {0..2}; do
             echo "${i}"
             echo "${{ toJson(steps.split.outputs) }}"
-            echo  jq '._0' ./.github/workflows/features.json
+            jq '._0' ./.github/workflows/features.json
           done  
        
       - name: parse json
