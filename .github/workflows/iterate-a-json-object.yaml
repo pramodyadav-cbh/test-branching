@@ -34,7 +34,10 @@ jobs:
           
           for i in {0..1}; do
             echo "${i}"
-            eval "echo \${steps.split.outputs._$i}"
-            echo "echo \${steps.split.outputs._$i}"
+            echo "${{ steps.split.outputs }}"
+            eval "echo \${steps.split.outputs._${i}}"
+            echo "echo \${steps.split.outputs._${i}}"
+            BRANCH_NAME = $(echo '${{ steps.split.outputs }}' | jq '._${i}')
+            echo "echo ${steps.split.outputs._${i}}"
           done  
         
