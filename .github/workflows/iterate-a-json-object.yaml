@@ -34,7 +34,7 @@ jobs:
           
           for i in {0..1}; do
             echo "${i}"
-            BRANCH_NAME = eval "echo \${steps.split.outputs._$i}"
-            echo $BRANCH_NAME
+            eval "echo \${steps.split.outputs._$i}"
+            echo "echo \${steps.split.outputs._$i}"
           done  
         
