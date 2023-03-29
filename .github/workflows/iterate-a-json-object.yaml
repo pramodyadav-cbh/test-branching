@@ -34,10 +34,8 @@ jobs:
           
           for i in {0..1}; do
             echo "${i}"
-            echo "${{ steps.split.outputs }}"
-            eval "echo \${steps.split.outputs._${i}}"
-            echo "echo \${steps.split.outputs._${i}}"
+            echo "${{ toJson(steps.split.outputs) }}"
             BRANCH_NAME = $(echo '${{ steps.split.outputs }}' | jq '._${i}')
-            echo "echo ${steps.split.outputs._${i}}"
+            echo ${BRANCH_NAME}
           done  
         
