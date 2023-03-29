@@ -41,7 +41,7 @@ jobs:
       - name : merge feature branch(es)
         run: |
           for i in {1..${{ inputs.number_of_feature_branches }}}
-            echo "${i} - Feature branch ${{ steps.split.outputs._${i} }}"
+            echo "${i} - Feature branch ${steps.split.outputs._0}"
 
       - name: Create new release branch
         run: git push origin "main:${{ steps.branch_name.outputs.branch-name }}"
