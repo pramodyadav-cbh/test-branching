@@ -41,6 +41,7 @@ jobs:
 
       - name: merge a branch
         run: |
+          git checkout -b feature-1-team-b origin/feature-1-team-b
           git checkout ${{ steps.branch_name.outputs.branch-name }}
           git merge feature-1-team-b
 
