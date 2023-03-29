@@ -1,4 +1,4 @@
-name: Create release branch and create PR against main
+name: Create PR to merge feature branch to release branch
 
 on:
   workflow_dispatch:
