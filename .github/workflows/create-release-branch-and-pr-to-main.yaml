@@ -28,7 +28,7 @@ jobs:
       - name: create release branch
         run : |
           git checkout -b ${{ steps.branch_name.outputs.branch-name }} main
-          git push origin "main:${{ steps.branch_name.outputs.branch-name }}"
+          #git push origin "main:${{ steps.branch_name.outputs.branch-name }}"
 
       - uses: jungwinter/split@v2
         id: split
@@ -44,7 +44,14 @@ jobs:
           git fetch
           git checkout -b feature-1-team-b origin/feature-1-team-b
           git checkout ${{ steps.branch_name.outputs.branch-name }}
-          git merge feature-1-team-b --allow-unrelated-histories
+          
+      - name: Merge feature branch -> release branch
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: feature-1-team-b
+          target_branch: ${{ steps.branch_name.outputs.branch-name }}
+          github_token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
 
       - name: Create new release branch
         run: git push origin "main:${{ steps.branch_name.outputs.branch-name }}"
