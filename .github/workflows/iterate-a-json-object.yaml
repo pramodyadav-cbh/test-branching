@@ -33,6 +33,5 @@ jobs:
         run: |
           for i in {0..1}; do
             echo "${i}"
-            #echo "${{ steps.split.outputs._'${i}' }}"
           done  
         
