@@ -37,6 +37,13 @@ jobs:
             echo "${{ toJson(steps.split.outputs) }}"
             jq '._0' ./.github/workflows/features.json
           done  
-       
+      
+      - name: iterate using for loop and jq
+        run: |
+          
+          for i in {0..2}; do
+            jq "._${i}" ./.github/workflows/features.json
+          done  
+      
       - name: parse json
         run: jq '._0' ./.github/workflows/features.json
