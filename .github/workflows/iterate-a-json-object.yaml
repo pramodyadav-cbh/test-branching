@@ -41,7 +41,7 @@ jobs:
       - name: iterate using for loop and jq
         run: |
           
-          for i in {0..2}; do
+          for i in {0.. jq '.length' ./.github/workflows/features.json}; do
             jq "._${i}" ./.github/workflows/features.json
           done  
       
