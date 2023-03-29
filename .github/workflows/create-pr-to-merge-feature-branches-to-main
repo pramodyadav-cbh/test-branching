@@ -1,0 +1,54 @@
+name: Create release branch and create PR against main
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_branches:
+        description: 'feature branches to be merged separated by commas'
+        required: true
+      number_of_feature_branches:
+        description: 'number of feature branches'
+        required: true
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
+
+      - name: evaluate branch name
+        id: branch_name
+        run: echo "branch-name=release-web-$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
+
+      - name: print branch name
+        run: echo ${{ steps.branch_name.outputs.branch-name }}
+
+      - name: create release branch
+        run : |
+          git checkout -b ${{ steps.branch_name.outputs.branch-name }} main
+          git push origin "main:${{ steps.branch_name.outputs.branch-name }}"
+          
+      - uses: jungwinter/split@v2
+        id: split
+        with:
+          msg: '${{ inputs.feature_branches }}'
+          separator: ","
+
+      - name: print feature branch name
+        run: echo ${{ steps.split.outputs._0 }}
+
+      - name: create-pull-request
+        id: create-pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "feature-1-team-b"
+          destination_branch: "${{ steps.branch_name.outputs.branch-name }}"
+          pr_title: "Pulling feature-1-team-b into ${{ steps.branch_name.outputs.branch-name }}"
+          pr_body: |
+              :crown: *An automated PR created to merge release branch into main* 
+          github_token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
+
+      - name: print pull request url
+        run: echo ${{steps.create-pull-request.outputs.pr_url}}
